@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(17, 16, 16);
+  }
+
+  header {
+    background-color: transparent;
+    height: 75px;
+  }
+
+  nav {
+    text-align: center;
+    display: flex;
+  }
+
+  ul {
+    list-style: none;
+    text-align: center;
+  }
+
+  nav ul li {
+    display: inline-block;
+  }
+
+  aside, main {
+    display: inline-block;
+  }
+
+  aside {
+    width: 300px;
+    background-color: burlywood;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  aside h2 {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .shops li a {
+    padding: 10px;
+    background-color: orange;
+    border-radius: 5px;
+  }
+
+  main {
+    background-color: blue;
+    border-radius: 10px;
+    overflow: auto;
+    width: 1000px;
+    margin-right: 20px;
+  }
+
+  footer {
+    background-color: chartreuse;
+    height: 200px;
+  }
+  
+  
