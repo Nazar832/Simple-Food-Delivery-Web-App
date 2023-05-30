@@ -5,7 +5,7 @@ Download postgresql and nodejs if you don't have it
 1) Open the project and the terminal;
 2) run npm install
 3) create a file named ".env" in the server folder
-4) write some information there (without 1., 2., 3...): 
+4) write some information there (without i., ii., iii...): 
     1. WS_PORT=your port
     2. DB_NAME=food_delivery 
     3. DB_USER=your username in postgres
