@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
-    <script src="/js/scripts.js" defer></script>
+    <script type="text/javascript" src="/js/shops.js" defer></script>
     <title>Shops</title>
 </head>
-<body>
+<body onload="displayShops();">
     <header>
         <nav>
             <ul>
@@ -18,13 +18,15 @@
             </ul>
         </nav>
     </header>
-    <aside>
-        <h2>Shops:</h2>
-        <ul id="shops"></ul>
-    </aside>
-    <main>
-        <ul id="food-items"></ul>
-    </main>
-    <footer></footer>
+    <div id="flex-div">
+        <aside>
+            <h2>Shops:</h2>
+            <ul id="shops"></ul>
+        </aside>
+        <main>
+            <ul id="food-items"></ul>
+        </main>
+    </div>
+    
 </body>
 </html>

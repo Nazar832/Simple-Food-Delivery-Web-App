@@ -1,93 +1,115 @@
 async function displayCart() {
-    const response = await fetch('/api/cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({items: JSON.parse(localStorage.getItem('items'))})
-    });
-
-    if (response.status === 500) {
-      alert('Error when downloading the cart');
+    const foodItems = JSON.parse(localStorage.getItem('cart') || "[]");
+    if (foodItems.length === 0) {
       return;
     }
-
-    const orderItems = await response.json();
-    const orderItemsContainer = document.getElementById('order-items');
     
     let totalPrice = 0;
-    for (i = 0; i < orderItems.length; i++) {
-      orderItem = orderItems[i];
-      const orderItemElement = document.createElement('li');
-      orderItemElement.innerHTML = `
-        <img src="/images/${orderItem.image_name}" width="300" height="150" alt="${orderItem.name}">
-        <h3>${orderItem.name}</h3>
-        <p>Price: ${orderItem.price}$</p>
-        <input class="numberOffoodItems" onfocus="this.oldvalue = this.value;" onchange="calcTotalPrice(this, ${orderItem.price});this.oldvalue = this.value;" type="number" min="1" max="100" value="1">
-        <button onclick="removeFromCart(${orderItem.id})">Remove</button>`;
-        orderItemsContainer.appendChild(orderItemElement);
-        totalPrice += orderItem.price;
+    const foodItemsContainer = document.getElementById('order-items');
+
+    for (i = 0; i < foodItems.length; i++) {
+      const foodItem = foodItems[i];
+      const foodItemElement = document.createElement('li');
+
+      foodItemElement.innerHTML = `
+        <img src="/images/${foodItem.imageName}" width="300" height="150" alt="${foodItem.name}">
+        <h3>${foodItem.name}</h3>
+        <p>Price: ${foodItem.price}$</p>
+        <input class="numberOffoodItems" onchange="updateCartElementQuantity(this, ${foodItem.id});" type="number" min="1" max="100" value="1">
+        <button onclick="removeFromCart(${foodItem.id})">Remove</button>`;
+
+        foodItemsContainer.appendChild(foodItemElement);
+        totalPrice += foodItem.price;
     }
-    
-    const spanElement = document.getElementById('total-price');
-    spanElement.textContent = totalPrice;
+    const totalPriceElement = document.getElementById('total-price');
+    totalPriceElement.textContent = totalPrice;
   }
 
-  function calcTotalPrice(price)
+  function calcTotalPrice()
   {
-    const spanElement = document.getElementById('total-price');
-    totalPrice = +spanElement.textContent;
+    let totalPrice = 0;
+    const items = JSON.parse(localStorage.getItem('cart'));
+    for (const item of items){
+      totalPrice += item.price * item.quantity;
+    }
+    const totalPriceElement = document.getElementById('total-price');
+    totalPriceElement.textContent = totalPrice; 
+  }
 
-    if (this.oldvalue < this.value) {
-        totalPrice += price;
+  function updateCartElementQuantity(input, itemId) {
+    const items = JSON.parse(localStorage.getItem('cart'));
+    for (const item of items){
+      if (item.id === itemId){
+        item.quantity = input.value;
+      }
     }
-    else{
-        totalPrice -= price;
-    }
-    
-    spanElement.textContent = totalPrice.toString(); 
+    localStorage.setItem('cart', JSON.stringify(items));
+
+    calcTotalPrice();
   }
 
   function removeFromCart(itemId) {
-    const items = JSON.parse(localStorage.getItem('items'));
-    const position = items.indexOf(itemId);
+    const items = JSON.parse(localStorage.getItem('cart'));
+    let position;
+    for (i = 0; i < items.length; i++){
+      if (items[i].id === itemId){
+        position = i;
+        break;
+      }
+    }
+    
     const listOfItems = document.querySelectorAll('#order-items li');
     listOfItems[position].remove();
     items.splice(position, 1);
-    localStorage.setItem('items', JSON.stringify(items));
+    localStorage.setItem('cart', JSON.stringify(items));
+
+    calcTotalPrice();
   }
   
-async function submitOrder() {
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const address = document.getElementById('address').value;
+  async function submitOrder() {
+    const items = JSON.parse(localStorage.getItem('cart') || "[]");
+    if (items.length === 0){
+      alert('Add some foods to the cart before submitting the order');
+      return;
+    }
 
-    if (name === '' || email === '' || phone === '' || address === '') {
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const address = document.getElementById('address');
+
+    if (name.value === '' || email.value === '' || phone.value === '' || address.value === '') {
         alert('You have to fill all the fields of the form');
         return;
     }
 
-    const items = JSON.parse(localStorage.getItem('items'));
+    const inputs = [name, email, phone, address];
+    for (const input of inputs) {
+      const result = validate(input);
+      if (result[0] === false) {
+        alert(result[1]);
+        return;
+      };
+    }
   
     const orderItemsContainer = document.querySelectorAll('#order-items input');
+
     const orderItems = [];
-    for (i = 0; i < orderItemsContainer.length; i++)
+    console.log(items.length);
+    for (const item of items)
     {
-      quantity = parseInt(orderItemsContainer[i].value);
-      food_item_id = items[i];
       orderItem = {
-        quantity: quantity, 
-        food_item_id: food_item_id
+        quantity: item.quantity, 
+        food_item_id: item.id
       };
       orderItems.push(orderItem);
     }
     
     const order = {
-      name: name,
-      email: email,
-      phone: phone,
-      address: address,
+      name: name.value,
+      email: email.value,
+      phone: phone.value,
+      address: address.value,
       orderItems: orderItems, 
     };
   
@@ -100,14 +122,13 @@ async function submitOrder() {
         body: JSON.stringify(order),
       });
   
+      if (response.ok) {
         localStorage.removeItem('items');
         alert('Order submitted successfully!');
-
-        if (response.status === 400){
-        alert('Invalid name of address for the user with such email and phone.');
-      }
+      } else if (response.status === 400){
+        alert('Invalid name or address for the user with such email and phone.');
+      }       
     } catch (error) {
-      console.error('Error submitting order', error);
       alert('An error occurred while submitting the order.');
     }
   }

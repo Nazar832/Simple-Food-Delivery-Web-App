@@ -5,47 +5,6 @@ body {
     background-color: rgb(17, 16, 16);
   }
 
-  header {
-    background-color: transparent;
-    height: 75px;
-  }
-
-  nav {
-    text-align: center;
-    display: flex;
-  }
-
-  ul {
-    list-style: none;
-    text-align: center;
-  }
-
-  nav ul li {
-    display: inline-block;
-  }
-
-  aside, main {
-    display: inline-block;
-  }
-
-  aside {
-    width: 300px;
-    background-color: burlywood;
-    border-radius: 10px;
-    text-align: center;
-  }
-
-  aside h2 {
-    margin: 0;
-    font-size: 16px;
-  }
-
-  .shops li a {
-    padding: 10px;
-    background-color: orange;
-    border-radius: 5px;
-  }
-
   main {
     background-color: blue;
     border-radius: 10px;
@@ -54,9 +13,189 @@ body {
     margin-right: 20px;
   }
 
-  footer {
-    background-color: chartreuse;
-    height: 200px;
+  header {
+    background-color: #e5d0d0;
+    padding: 10px;
   }
   
+  nav {
+    text-align: center;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px;
+  }
+  
+  nav ul li a:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  aside {
+    background-color: #f2f2f2;
+    padding: 10px;
+    width: 15%;
+    max-width: 20%;
+    left: 0;
+    margin-top: 5px;
+    bottom: 0;
+    overflow-y: auto;
+    display: inline-block;
+  }
+  
+  aside h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  aside ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  aside li {
+    margin-bottom: 5px;
+  }
+  
+    button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  aside button {
+    width: 100%;
+  }
+  
+  aside button:hover {
+    background-color: #666;
+  }
+
+  #flex-div {
+    display: flex;
+  }
+  
+  main {
+    margin-left: 10px; 
+    margin-top: 5px;
+    padding: 10px;
+    padding-right: 0;
+    padding-left: 20px;
+    margin-right: 10px;
+    width: 100%;
+    background-color: coral;
+  }
+
+  #food-items {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  main li {
+    margin-bottom: 30px;
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  main img {
+    width: 355px;
+    height: 180px;
+    border-radius: 8px;
+  }
+  
+  main h3 {
+    margin: 10px 0;
+  }
+  
+  main button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  main button:hover {
+    background-color: #666;
+  }
+
+  #main-flex {
+    display: flex;
+  }
+
+  form {
+    max-width: 400px;
+    width: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+  }
+  
+  /* Style for form fields */
+  div {
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="tel"] {
+    width: 95%;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Style for submit button */
+  form input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  form input[type="submit"]:hover {
+    background-color: #666;
+  }
+
+  #total-price-p, #submit-order-btn {
+    margin-left: 40px;
+  }
+
+  #orders-history-form {
+    margin-top: 5px;
+  }
+
+  .order-li {
+    border-width: 5px;
+    border-color: #333;
+    background-color: #ccc;
+  }
   

@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="/js/cart.js" defer></script>
+    <script type="text/javascript" src="/js/validation.js"></script>
+    <script type="text/javascript" src="/js/cart.js" defer></script>
     <title>Cart</title>
 </head>
 <body onload="displayCart()">
@@ -18,7 +19,7 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main id="main-flex">
         <section>
             <form id="order-form">
                 <div>
@@ -41,10 +42,9 @@
         </section>
         <section>
             <ul id="order-items"></ul>
+            <p id="total-price-p">Total price: <span id="total-price"></span>$</p>
+            <button id="submit-order-btn" onclick="submitOrder()">Submit Order</button>
         </section>
-        <p>Total price: <span id="total-price"></span>$</p>
-        <button onclick="submitOrder()">Submit Order</button>
     </main>
-    <footer></footer>
 </body>
 </html>
